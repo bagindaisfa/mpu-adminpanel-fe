@@ -19,6 +19,7 @@ const Header = () => {
         display: 'flex',
         justifyContent: 'flex-end',
         background: '#fff',
+        padding: '20px',
       }}
     >
       <Button
