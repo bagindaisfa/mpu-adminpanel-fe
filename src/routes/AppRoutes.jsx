@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import Blogs from '../pages/Blogs';
 import Assessments from '../pages/Assessments';
 import ProtectedRoute from './ProtectedRoute';
+import NotFound from '../pages/NotFound';
 
 const AppRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
