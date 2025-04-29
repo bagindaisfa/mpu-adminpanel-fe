@@ -1,4 +1,4 @@
-import api from './api'; // pastikan instance api sudah setup Authorization Bearer
+import api from './api';
 
 // Fetch statistik angka-angka utama di dashboard
 export const fetchStats = () => api.get('/dashboard/stats');

@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import Blogs from '../pages/Blogs';
 import Assessments from '../pages/Assessments';
 import ProtectedRoute from './ProtectedRoute';
+import Comments from '../pages/Comments';
 import NotFound from '../pages/NotFound';
 
 const AppRoutes = () => {
@@ -32,6 +33,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <Assessments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/comments"
+          element={
+            <ProtectedRoute>
+              <Comments />
             </ProtectedRoute>
           }
         />

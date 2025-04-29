@@ -1,20 +1,32 @@
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   UserOutlined,
   FileOutlined,
   FileProtectOutlined,
   SettingOutlined,
   TeamOutlined,
-  LogoutOutlined,
+  MessageOutlined,
 } from '@ant-design/icons';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { removeToken } from '../utils/auth';
+import { Link, useLocation } from 'react-router-dom';
 
 const { Sider } = Layout;
 
 const menuItems = [
   { key: '1', path: '/dashboard', label: 'Dashboard', icon: <UserOutlined /> },
-  { key: '2', path: '/blogs', label: 'Blog', icon: <FileOutlined /> },
+  {
+    key: '2',
+    label: 'Blog',
+    icon: <FileOutlined />,
+    children: [
+      { key: '2-1', path: '/blogs', label: 'Posts', icon: <FileOutlined /> },
+      {
+        key: '2-2',
+        path: '/comments',
+        label: 'Comments',
+        icon: <MessageOutlined />,
+      },
+    ],
+  },
   {
     key: '3',
     path: '/assessments',
@@ -35,12 +47,6 @@ const menuItems = [
 const Sidebar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    removeToken();
-    navigate('/');
-  };
 
   const getSelectedKey = () => {
     const findItem = (items) => {
