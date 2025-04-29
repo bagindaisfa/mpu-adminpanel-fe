@@ -129,7 +129,7 @@ const Dashboard = () => {
       {/* Latest Section */}
       <Row gutter={16} style={{ marginTop: 24 }}>
         <Col xs={24} md={8}>
-          <Card title="Latest Blogs" style={{ minHeight: 300 }}>
+          <Card title="Latest Blogs" style={{ minHeight: 400 }}>
             {loading ? (
               <Skeleton active paragraph={{ rows: 4 }} />
             ) : (
@@ -148,7 +148,7 @@ const Dashboard = () => {
           </Card>
         </Col>
         <Col xs={24} md={8}>
-          <Card title="Latest Comments" style={{ minHeight: 300 }}>
+          <Card title="Latest Comments" style={{ minHeight: 400 }}>
             {loading ? (
               <Skeleton active paragraph={{ rows: 4 }} />
             ) : (
@@ -156,7 +156,7 @@ const Dashboard = () => {
                 <Table
                   dataSource={latestComments}
                   columns={[
-                    { title: 'User', dataIndex: 'user', key: 'user' },
+                    { title: 'User', dataIndex: 'name', key: 'name' },
                     { title: 'Comment', dataIndex: 'comment', key: 'comment' },
                     { title: 'Date', dataIndex: 'date', key: 'date' },
                   ]}
@@ -168,7 +168,7 @@ const Dashboard = () => {
           </Card>
         </Col>
         <Col xs={24} md={8}>
-          <Card title="Latest Assessments Submittor" style={{ minHeight: 300 }}>
+          <Card title="Latest Assessments Submittor" style={{ minHeight: 400 }}>
             {loading ? (
               <Skeleton active paragraph={{ rows: 4 }} />
             ) : (

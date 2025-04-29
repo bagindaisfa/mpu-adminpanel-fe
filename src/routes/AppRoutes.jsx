@@ -5,6 +5,7 @@ import Blogs from '../pages/Blogs';
 import Assessments from '../pages/Assessments';
 import ProtectedRoute from './ProtectedRoute';
 import Comments from '../pages/Comments';
+import BlogForm from '../pages/BlogForm';
 import NotFound from '../pages/NotFound';
 
 const AppRoutes = () => {
@@ -25,6 +26,22 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <Blogs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blogs/create" // Route untuk tambah blog
+          element={
+            <ProtectedRoute>
+              <BlogForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blogs/edit/:id" // Route untuk edit blog
+          element={
+            <ProtectedRoute>
+              <BlogForm isEdit={true} />
             </ProtectedRoute>
           }
         />
