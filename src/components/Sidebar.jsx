@@ -6,6 +6,7 @@ import {
   SettingOutlined,
   TeamOutlined,
   MessageOutlined,
+  DatabaseOutlined,
 } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -29,9 +30,22 @@ const menuItems = [
   },
   {
     key: '3',
-    path: '/assessments',
     label: 'Assessment',
     icon: <FileProtectOutlined />,
+    children: [
+      {
+        key: '3-1',
+        path: '/assessments',
+        label: 'Questions',
+        icon: <FileProtectOutlined />,
+      },
+      {
+        key: '3-2',
+        path: '/result',
+        label: 'Results',
+        icon: <DatabaseOutlined />,
+      },
+    ],
   },
   {
     key: 'sub1',
@@ -39,7 +53,6 @@ const menuItems = [
     icon: <SettingOutlined />,
     children: [
       { key: '4', path: '/users', label: 'Users', icon: <TeamOutlined /> },
-      { key: '5', path: '/roles', label: 'Roles', icon: <UserOutlined /> },
     ],
   },
 ];

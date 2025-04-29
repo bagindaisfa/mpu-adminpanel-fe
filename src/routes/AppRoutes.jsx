@@ -4,15 +4,21 @@ import Dashboard from '../pages/Dashboard';
 import Blogs from '../pages/Blogs';
 import Assessments from '../pages/Assessments';
 import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 import Comments from '../pages/Comments';
 import BlogForm from '../pages/BlogForm';
 import NotFound from '../pages/NotFound';
+import AssessmentResults from '../pages/AssessmentResults';
+import Users from '../pages/Users';
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Login />} />
+        </Route>
+
         <Route
           path="/dashboard"
           element={
@@ -54,10 +60,26 @@ const AppRoutes = () => {
           }
         />
         <Route
+          path="/result"
+          element={
+            <ProtectedRoute>
+              <AssessmentResults />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/comments"
           element={
             <ProtectedRoute>
               <Comments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <Users />
             </ProtectedRoute>
           }
         />
