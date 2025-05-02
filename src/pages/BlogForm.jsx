@@ -1,25 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Form, Input, Button, Upload, message, Image } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { createBlog, updateBlog, getBlogById } from '../services/blogs';
 import { useNavigate, useParams } from 'react-router-dom';
+import JoditEditor from 'jodit-react';
 
 const BlogForm = ({ isEdit = false }) => {
   const [form] = Form.useForm();
+  const editor = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [fileList, setFileList] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams(); // ambil ID dari URL untuk edit
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     if (isEdit && id) {
       getBlogById(id)
         .then((data) => {
-          form.setFieldsValue({ title: data.title, content: data.content });
+          form.setFieldsValue({
+            title: data.title,
+            category: data.category,
+            content: data.content,
+          });
+          setContent(data.content);
           if (data.image_path) {
-            setImagePreview(
-              `${import.meta.env.VITE_BASE_URL}/uploads/${data.image_path}`
-            );
+            setImagePreview(data.image_path);
           }
         })
         .catch(() => message.error('Failed to fetch blog data'));
@@ -29,6 +35,7 @@ const BlogForm = ({ isEdit = false }) => {
   const handleFinish = async (values) => {
     const formData = new FormData();
     formData.append('title', values.title);
+    formData.append('category', values.category);
     formData.append('content', values.content);
     if (fileList.length > 0) {
       formData.append('image', fileList[0].originFileObj);
@@ -76,7 +83,16 @@ const BlogForm = ({ isEdit = false }) => {
         </Form.Item>
 
         <Form.Item name="content" label="Content" rules={[{ required: true }]}>
-          <Input.TextArea rows={6} placeholder="Enter blog content" />
+          <JoditEditor
+            ref={editor}
+            value={content}
+            config={{
+              readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+              placeholder: 'Enter blog content',
+            }}
+            onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+            onChange={(newContent) => {}}
+          />
         </Form.Item>
 
         <Form.Item label="Image">
