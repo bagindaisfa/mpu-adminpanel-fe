@@ -67,6 +67,14 @@ const BlogForm = ({ isEdit = false }) => {
           <Input placeholder="Enter blog title" />
         </Form.Item>
 
+        <Form.Item
+          name="category"
+          label="Category"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="Enter blog category" />
+        </Form.Item>
+
         <Form.Item name="content" label="Content" rules={[{ required: true }]}>
           <Input.TextArea rows={6} placeholder="Enter blog content" />
         </Form.Item>
