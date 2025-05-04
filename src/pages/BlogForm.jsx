@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Form, Input, Button, Upload, message, Image } from 'antd';
+import { Form, Input, Button, Upload, message, Image, Select } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { createBlog, updateBlog, getBlogById } from '../services/blogs';
+import { getAllCategories } from '../services/category';
 import { useNavigate, useParams } from 'react-router-dom';
 import JoditEditor from 'jodit-react';
 
@@ -10,9 +11,17 @@ const BlogForm = ({ isEdit = false }) => {
   const editor = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [fileList, setFileList] = useState([]);
-  const navigate = useNavigate();
-  const { id } = useParams(); // ambil ID dari URL untuk edit
+  const [categories, setCategories] = useState([]);
   const [content, setContent] = useState('');
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  // Fetch categories
+  useEffect(() => {
+    getAllCategories()
+      .then((data) => setCategories(data))
+      .catch(() => message.error('Failed to fetch categories'));
+  }, []);
 
   useEffect(() => {
     if (isEdit && id) {
@@ -77,9 +86,15 @@ const BlogForm = ({ isEdit = false }) => {
         <Form.Item
           name="category"
           label="Category"
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: 'Please select a category' }]}
         >
-          <Input placeholder="Enter blog category" />
+          <Select placeholder="Select category">
+            {categories.map((cat) => (
+              <Select.Option key={cat.id} value={cat.name}>
+                {cat.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
         <Form.Item name="content" label="Content" rules={[{ required: true }]}>
@@ -87,11 +102,10 @@ const BlogForm = ({ isEdit = false }) => {
             ref={editor}
             value={content}
             config={{
-              readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+              readonly: false,
               placeholder: 'Enter blog content',
             }}
-            onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-            onChange={(newContent) => {}}
+            onBlur={(newContent) => setContent(newContent)}
           />
         </Form.Item>
 
@@ -99,7 +113,7 @@ const BlogForm = ({ isEdit = false }) => {
           <Upload
             fileList={fileList}
             onChange={handleUploadChange}
-            beforeUpload={() => false} // prevent auto upload
+            beforeUpload={() => false}
             listType="picture"
             maxCount={1}
           >

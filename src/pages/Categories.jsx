@@ -10,52 +10,52 @@ import {
   Space,
 } from 'antd';
 import {
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} from '../services/users';
+  getAllCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from '../services/category';
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
+const Categories = () => {
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState(null);
+  const [editingCategory, setEditingCategory] = useState(null);
 
-  const fetchUsers = async () => {
+  const fetchCategories = async () => {
     setLoading(true);
     try {
-      const data = await getUsers();
-      setUsers(data);
+      const data = await getAllCategories();
+      setCategories(data);
     } catch (err) {
-      message.error('Failed to fetch users');
+      message.error('Failed to fetch categories');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchCategories();
   }, []);
 
   const handleAdd = () => {
-    setEditingUser(null);
+    setEditingCategory(null);
     form.resetFields();
     setModalOpen(true);
   };
 
   const handleEdit = (record) => {
-    setEditingUser(record);
-    form.setFieldsValue({ username: record.username, password: '' });
+    setEditingCategory(record);
+    form.setFieldsValue({ name: record.name });
     setModalOpen(true);
   };
 
   const handleDelete = async (id) => {
     try {
-      await deleteUser(id);
-      message.success('User deleted');
-      fetchUsers();
+      await deleteCategory(id);
+      message.success('Category deleted');
+      fetchCategories();
     } catch {
       message.error('Failed to delete user');
     }
@@ -64,15 +64,15 @@ const Users = () => {
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      if (editingUser) {
-        await updateUser(editingUser.id, values);
-        message.success('User updated');
+      if (editingCategory) {
+        await updateCategory(editingCategory.id, values);
+        message.success('Category updated');
       } else {
-        await createUser(values);
-        message.success('User created');
+        await createCategory(values);
+        message.success('Category created');
       }
       setModalOpen(false);
-      fetchUsers();
+      fetchCategories();
     } catch (err) {
       console.error(err);
     }
@@ -84,9 +84,9 @@ const Users = () => {
       render: (_, __, index) => index + 1,
     },
     {
-      title: 'Username',
-      dataIndex: 'username',
-      key: 'username',
+      title: 'Category',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Action',
@@ -96,7 +96,7 @@ const Users = () => {
             Edit
           </Button>
           <Popconfirm
-            title="Delete this user?"
+            title="Delete this category?"
             onConfirm={() => handleDelete(record.id)}
           >
             <Button size="small" danger>
@@ -111,41 +111,32 @@ const Users = () => {
   return (
     <div>
       <Button type="primary" onClick={handleAdd} style={{ marginBottom: 20 }}>
-        Add User
+        Add Category
       </Button>
 
       <Table
         columns={columns}
-        dataSource={users}
+        dataSource={categories}
         rowKey="id"
         loading={loading}
         pagination={false}
       />
       <Modal
         open={modalOpen}
-        title={editingUser ? 'Edit User' : 'Add User'}
+        title={editingCategory ? 'Edit Category' : 'Add Category'}
         onCancel={() => setModalOpen(false)}
         onOk={handleSubmit}
         okText="Simpan"
       >
         <Form form={form} layout="vertical">
           <Form.Item
-            name="username"
-            label="Username"
+            name="name"
+            label="Category Name"
             rules={[
               { required: true, min: 3, message: 'Minimum 3 characters' },
             ]}
           >
             <Input />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            label={editingUser ? 'Password (new)' : 'Password'}
-            rules={[
-              { required: true, min: 6, message: 'Minimum 6 characters' },
-            ]}
-          >
-            <Input.Password />
           </Form.Item>
         </Form>
       </Modal>
@@ -153,4 +144,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Categories;

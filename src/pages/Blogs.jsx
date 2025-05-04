@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table, Button, Space, Image, Popconfirm, message } from 'antd';
+import { Table, Button, Space, Image, Popconfirm, message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { getAllBlogs, deleteBlog } from '../services/blogs'; // Buat file ini nanti
 
@@ -47,6 +47,18 @@ const Blogs = () => {
       key: 'title',
     },
     {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+      render: (_, { category }) => (
+        <>
+          <Tag color="green" key={category}>
+            {category.toUpperCase()}
+          </Tag>
+        </>
+      ),
+    },
+    {
       title: 'Created At',
       dataIndex: 'created_at',
       key: 'created_at',
@@ -81,7 +93,11 @@ const Blogs = () => {
 
   return (
     <div>
-      <Button type="primary" onClick={() => navigate('/blogs/create')}>
+      <Button
+        type="primary"
+        onClick={() => navigate('/blogs/create')}
+        style={{ marginBottom: 20 }}
+      >
         + Add Blog
       </Button>
       <Table

@@ -7,6 +7,7 @@ import {
   TeamOutlined,
   MessageOutlined,
   DatabaseOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -53,6 +54,12 @@ const menuItems = [
     icon: <SettingOutlined />,
     children: [
       { key: '4', path: '/users', label: 'Users', icon: <TeamOutlined /> },
+      {
+        key: '5',
+        path: '/categories',
+        label: 'Blog Categories',
+        icon: <UnorderedListOutlined />,
+      },
     ],
   },
 ];

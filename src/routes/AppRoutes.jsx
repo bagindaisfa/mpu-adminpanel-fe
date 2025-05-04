@@ -10,6 +10,7 @@ import BlogForm from '../pages/BlogForm';
 import NotFound from '../pages/NotFound';
 import AssessmentResults from '../pages/AssessmentResults';
 import Users from '../pages/Users';
+import Categories from '../pages/Categories';
 
 const AppRoutes = () => {
   return (
@@ -80,6 +81,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <Users />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
             </ProtectedRoute>
           }
         />
