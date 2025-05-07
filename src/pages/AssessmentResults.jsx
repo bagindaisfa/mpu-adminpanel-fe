@@ -41,6 +41,13 @@ const AssessmentResults = () => {
         text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
     },
     {
+      title: 'Company Name',
+      dataIndex: 'company_name',
+      key: 'company_name',
+      render: (text) =>
+        text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
+    },
+    {
       title: 'Submitted At',
       dataIndex: 'created_at',
       key: 'created_at',
