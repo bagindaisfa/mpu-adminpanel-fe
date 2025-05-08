@@ -11,6 +11,7 @@ import NotFound from '../pages/NotFound';
 import AssessmentResults from '../pages/AssessmentResults';
 import Users from '../pages/Users';
 import Categories from '../pages/Categories';
+import Contacts from '../pages/Contact';
 
 const AppRoutes = () => {
   return (
@@ -73,6 +74,14 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <Comments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <ProtectedRoute>
+              <Contacts />
             </ProtectedRoute>
           }
         />

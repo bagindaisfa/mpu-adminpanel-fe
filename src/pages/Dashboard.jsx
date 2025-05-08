@@ -8,6 +8,7 @@ import {
   Skeleton,
   Button,
 } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { Area } from '@ant-design/charts';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
@@ -22,6 +23,7 @@ import {
 } from '../services/dashboard'; // sesuaikan path importnya ya!
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [statsData, setStatsData] = useState([]);
   const [visitorData, setVisitorData] = useState([]);
   const [latestBlogs, setLatestBlogs] = useState([]);
@@ -94,19 +96,30 @@ const Dashboard = () => {
       </div>
 
       {/* Statistics */}
-      <Row gutter={[16, 16]}>
+      <Row
+        gutter={[12, 12]}
+        justify="center"
+        style={{ margin: '0 auto', maxWidth: '90%' }}
+      >
         {loading
-          ? Array.from({ length: 4 }).map((_, index) => (
-              <Col xs={24} sm={12} md={6} key={index}>
-                <Card>
+          ? Array.from({ length: 5 }).map((_, index) => (
+              <Col xs={24} sm={12} md={4} key={index}>
+                <Card style={{ textAlign: 'center' }}>
                   <Skeleton active paragraph={false} />
                 </Card>
               </Col>
             ))
           : statsData.map((stat, index) => (
-              <Col xs={24} sm={12} md={6} key={index}>
+              <Col xs={24} sm={12} md={4} key={index}>
                 <Fade triggerOnce>
-                  <Card style={{ background: '#f9f9f9' }}>
+                  <Card
+                    style={{
+                      background: '#f9f9f9',
+                      textAlign: 'center',
+                      height: 120,
+                    }}
+                    onClick={() => navigate(`${stat.route}`)}
+                  >
                     <Statistic title={stat.title} value={stat.value} />
                   </Card>
                 </Fade>
