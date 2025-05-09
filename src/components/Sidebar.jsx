@@ -1,4 +1,4 @@
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Image } from 'antd';
 import {
   UserOutlined,
   FileOutlined,
@@ -11,6 +11,7 @@ import {
   ContactsOutlined,
 } from '@ant-design/icons';
 import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/mitraprabhutva.png';
 
 const { Sider } = Layout;
 
@@ -109,17 +110,8 @@ const Sidebar = () => {
 
   return (
     <Sider breakpoint="lg" collapsedWidth="0">
-      <div
-        style={{
-          height: 32,
-          margin: 16,
-          background: 'white',
-          textAlign: 'center',
-          lineHeight: '32px',
-          fontWeight: 'bold',
-        }}
-      >
-        MPU Admin
+      <div style={{ maxWidth: 197 }}>
+        <Image src={logo} alt="Logo" preview={false} />
       </div>
       <Menu
         theme="dark"

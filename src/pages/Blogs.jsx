@@ -71,7 +71,12 @@ const Blogs = () => {
         <Space>
           <Button
             type="link"
-            onClick={() => window.open(`/blogs/${record.id}`, '_blank')}
+            onClick={() =>
+              window.open(
+                `https://mpupeoplesolution.com/blog_details/${record.id}`,
+                '_blank'
+              )
+            }
           >
             View
           </Button>
