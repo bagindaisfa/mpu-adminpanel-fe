@@ -33,8 +33,8 @@ const menuItems = [
   },
   {
     key: '3',
-    path: '/contacts',
-    label: 'Contacts',
+    path: '/schedules',
+    label: 'Schedules',
     icon: <ContactsOutlined />,
   },
   {

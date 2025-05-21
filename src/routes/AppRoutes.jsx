@@ -78,7 +78,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/contacts"
+          path="/schedules"
           element={
             <ProtectedRoute>
               <Contacts />
