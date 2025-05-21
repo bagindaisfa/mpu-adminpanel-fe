@@ -19,6 +19,6 @@ export const toggleQuestionVisibility = async (id) => {
 };
 
 export const getAllAnswers = async () => {
-  const res = await api.get('/assessments/answare');
+  const res = await api.get('/user-contact/contacts');
   return res.data;
 };

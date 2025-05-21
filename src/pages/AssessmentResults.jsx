@@ -41,34 +41,48 @@ const AssessmentResults = () => {
         text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
     },
     {
-      title: 'Company Name',
-      dataIndex: 'company_name',
-      key: 'company_name',
+      title: 'Phone Number',
+      dataIndex: 'number',
+      key: 'number',
       render: (text) =>
         text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
     },
     {
-      title: 'Submitted At',
-      dataIndex: 'created_at',
-      key: 'created_at',
-      render: (value) => new Date(value).toLocaleString(),
+      title: 'Company Name',
+      dataIndex: 'company',
+      key: 'company',
+      render: (text) =>
+        text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
     },
     {
-      title: 'Answares',
-      key: 'answers',
+      title: 'Message',
+      dataIndex: 'message',
+      key: 'message',
+      render: (text) =>
+        text ? text : <span style={{ color: 'gray' }}>Not Provided</span>,
+    },
+    {
+      title: 'issues',
+      key: 'issues',
       render: (_, record) => (
         <Collapse ghost>
           <Panel header="View Answer" key="1">
             <ul>
-              {record.answers.map((item, idx) => (
+              {record?.issues?.map((item, idx) => (
                 <li key={idx}>
-                  <strong>{item.question_text}</strong>: {item.answer}
+                  <strong>{item}</strong>
                 </li>
               ))}
             </ul>
           </Panel>
         </Collapse>
       ),
+    },
+    {
+      title: 'Submitted At',
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (value) => new Date(value).toLocaleString(),
     },
   ];
 

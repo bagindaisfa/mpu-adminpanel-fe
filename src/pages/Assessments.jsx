@@ -41,7 +41,7 @@ const Assessments = () => {
 
   const columns = [
     {
-      title: 'Question',
+      title: 'Issues',
       dataIndex: 'question_text',
       key: 'question_text',
     },
