@@ -1,7 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Table, Button, Space, Image, Popconfirm, message, Tag } from 'antd';
+import {
+  Table,
+  Button,
+  Space,
+  Image,
+  Popconfirm,
+  message,
+  Tag,
+  Switch,
+} from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { getAllBlogs, deleteBlog } from '../services/blogs'; // Buat file ini nanti
+import {
+  getAllBlogs,
+  deleteBlog,
+  toggleBlogVisibility,
+} from '../services/blogs'; // Buat file ini nanti
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -27,6 +40,16 @@ const Blogs = () => {
       fetchBlogs();
     } catch (err) {
       message.error('Delete failed');
+    }
+  };
+
+  const handleToggleVisibility = async (id) => {
+    try {
+      await toggleBlogVisibility(id);
+      fetchBlogs();
+      message.success('Berhasil mengubah status blog');
+    } catch (err) {
+      message.error('Gagal mengubah status');
     }
   };
 
@@ -63,6 +86,17 @@ const Blogs = () => {
       dataIndex: 'created_at',
       key: 'created_at',
       render: (val) => new Date(val).toLocaleString(),
+    },
+    {
+      title: 'Status',
+      dataIndex: 'is_active',
+      key: 'is_active',
+      render: (isActive, record) => (
+        <Switch
+          checked={isActive}
+          onChange={() => handleToggleVisibility(record.id)}
+        />
+      ),
     },
     {
       title: 'Action',

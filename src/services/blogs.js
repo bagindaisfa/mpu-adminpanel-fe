@@ -23,3 +23,7 @@ export const getBlogById = async (id) => {
   const response = await api.get(`/blogs/${id}`);
   return response.data;
 };
+
+export const toggleBlogVisibility = async (id) => {
+  return await api.patch(`/blogs/${id}/visibility`);
+};
